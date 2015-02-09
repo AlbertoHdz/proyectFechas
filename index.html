@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculo de la masa corporal</title>
+	<script type="text/javascript" src ="numeros.js"></script>
+	<script type="text/javascript" src ="jquery.maskedinput.js"></script>
+	<script type="text/javascript" src ="jquery-2.0.2.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+	<link href="js/bootstrap.css" rel="stylesheet">
+	<!--link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+	<[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link href="css/styles.css" rel="stylesheet">
+	<script type="text/javascript" charset="utf-8">
+	
+	function diasMes(mes,anio){
+		
+		return new Date(anio || new Date().getFullYear(), mes, 0).getDate();
+	}
+
+	function validarFecha(day,month,year)
+	{
+	    var validarF;
+	    var b=false;
+	    month = month - 1;
+	    validarF = new Date(year,month,day);
+		/*if((day==validarF.getDate())&&(month==validarF.getMonth())&&(year==validarF.getFullYear()){
+			b=true;
+		}*/
+	   return ((day==validarF.getDate()) && (month==validarF.getMonth()) && (year==validarF.getFullYear()));
+	}
+
+	function calcular(){
+		var dia = document.getElementById("dia").value;
+		var mes = document.getElementById("month").value;
+		var anio = document.getElementById("anio").value;
+		var m = "";
+
+		var leyenda='';
+
+		if(validarFecha(dia,mes,anio)){
+			date = new Date();
+			
+			var diaActual = date.getDate();
+			var mesActual = date.getMonth()+1;
+			var year = date.getFullYear();
+		
+			
+			var diaActualizado = 0;
+			var mesActualizado = 0;
+			var anioActualizado = 0;
+			var TotalMeses = 12;//total de meses del año ---- 12
+			var totalDias = diasMes(mes, anio); 
+				if(mes > mesActual){
+					anioActualizado = year - anio;
+					anioActualizado = anioActualizado - 1;
+					var auxmesActual = 0;
+					auxmesActual = TotalMeses - mes;
+					auxmesActual = auxmesActual + mesActual;
+					
+					if(dia <= diaActual){
+						mesActualizado = auxmesActual;
+						if(dia == diaActual){
+							diaActualizado = 0;
+						}else{
+							diaActualizado = diaActual - dia;
+						}
+						leyenda="Tu Edad es de "+anioActualizado+" años con "+mesActualizado+" meses y "+diaActualizado+" dias";
+					}else{
+							var auxDias = 0;
+							mesActualizado = auxmesActual;
+							if(auxmesActual>0){
+								mesActualizado = auxmesActual - 1;
+							}
+							auxDias = totalDias - dia;
+							diaActualizado = diaActual + auxDias;
+							leyenda="Tu Edad es de "+anioActualizado+" años con "+mesActualizado+" meses y "+diaActualizado+" dias";
+						}
+				}else{
+					anioActualizado = year - anio;
+					var auxmesActual = 0;
+					auxmesActual = mesActual - mes;
+				
+					if(dia <= diaActual){
+						mesActualizado = auxmesActual;
+						if(dia == diaActual){
+							diaActualizado = 0;
+						}else{
+							diaActualizado = diaActual - dia;
+						}
+						leyenda="Tu Edad es de "+anioActualizado+" años con "+mesActualizado+" meses y "+diaActualizado+" dias";
+					}else{
+							var auxDias = 0;
+							anioActualizado = anioActualizado - 1;
+							mesActualizado = TotalMeses - mes;
+							if(auxmesActual>0){
+								mesActualizado = auxmesActual - 1;
+							}
+							auxDias = totalDias - dia;
+							diaActualizado = diaActual + auxDias;
+							leyenda="Tu Edad es de "+anioActualizado+" años con "+mesActualizado+" meses y "+diaActualizado+" dias";
+						
+					}
+
+				}
+		}else{
+			leyenda='Fecha Incorrecta';
+		};
+		var hr= new Date();
+		alert(leyenda);
+		info.innerHTML = '<div style="width:90%;height:150px;border:solid silver;margin:6px;background:#FFF">'+'Usuario tu Edad es de: en años: '+
+		anioActualizado +'<br> meses '+mesActualizado+'<br> dias '+diaActualizado+'<br> horas: '+hr.getHours()+ '<br> minutos: '+hr.getMinutes()+'</div>';
+	}
+	</script>
+	
+
+</head>
+<body style="background:#CBA;">
+
+
+<div class="container well well-lg">
+    
+    <div class="row">
+	
+<h5><b>Fecha de nacimiento:</b></h5>
+Seleccione dia:
+<select id="dia" required class="form form-control">
+        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+        <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
+        <option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
+        <option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option>
+        <option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>
+        <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option>
+        <option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option>
+        <option value="29">29</option><option value="30">30</option><option value="31">31</option>
+</select><br>
+
+Seleccione mes:
+<select id="month" required class="form form-control">
+        <option value="1">Enero</option>
+		<option value="2">Febrero</option>
+		<option value="3">Marzo</option>
+        <option value="4">Abril</option>
+		<option value="5">Mayo</option>
+		<option value="6">Junio</option>
+        <option value="7">Julio</option>
+		<option value="8">Agosto</option>
+		<option value="9">Septiembre</option>
+        <option value="10">Octubre</option>
+		<option value="11">Noviembre</option>
+		<option value="12">Diciembre</option>
+</select>
+<br>
+Ingrese Año:<input class="form form-control" type="number" id="anio" value="" placeholder="año" size="8" required/> <br><br>
+<input type="button" class="btn btn-success" value="Calcular" onclick="calcular();" name="calcular" id="cal"/><br>
+    		    
+    </div>
+</div>
+
+
+<div id="info">
+
+</div>
+
+</body>
+</html>
